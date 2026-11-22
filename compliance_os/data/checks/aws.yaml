@@ -1,0 +1,210 @@
+# AWS account checks (read-only, boto3 SecurityAudit-equivalent calls)
+# Every check maps to ISO 27001 Annex A and to the Moroccan controls where an
+# equivalent obligation exists.
+
+source: aws
+collector: collect_aws
+
+checks:
+  - id: AWS-01
+    title: "Root account has MFA enabled"
+    field: iam.root_mfa_enabled
+    operator: is_true
+    severity: critical
+    controls: [A.5.17, A.8.5, A.8.2]
+    maps_to: [MA05-20-11]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      The root account can do anything and cannot be restricted by policy. It is
+      the single credential whose compromise ends the company.
+    remediation: >
+      Sign in as root -> Security credentials -> Assign an MFA device. Then stop
+      using root: create an admin role and assume it.
+
+  - id: AWS-02
+    title: "No root account access keys exist"
+    field: iam.root_access_keys
+    operator: len_eq
+    value: 0
+    severity: critical
+    controls: [A.8.2, A.5.17]
+    maps_to: [MA05-20-11]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Long-lived root keys are the most commonly leaked AWS credential because
+      they are copied into scripts and CI variables that never rotate.
+    remediation: >
+      Security credentials -> Access keys -> Delete any root key. Replace with
+      IAM roles or short-lived STS credentials.
+
+  - id: AWS-03
+    title: "All IAM users with console access have MFA"
+    field: iam.users_without_mfa
+    operator: len_eq
+    value: 0
+    severity: high
+    controls: [A.5.17, A.8.5]
+    maps_to: [MA05-20-11]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      A console user without MFA is one password away from your production data.
+    remediation: >
+      IAM -> Users -> filter by MFA = No. For each, assign an MFA device or
+      remove console access if the user only needs API access.
+
+  - id: AWS-04
+    title: "S3 block public access is enabled account-wide"
+    field: s3.account_public_access_blocked
+    operator: is_true
+    severity: critical
+    controls: [A.8.12, A.8.20, A.5.10]
+    maps_to: [MA09-08-06, MA05-20-12]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Public S3 buckets remain one of the most common causes of a data breach.
+      Account-wide block is the only setting that survives a misconfigured
+      bucket policy.
+    remediation: >
+      S3 -> Block Public Access (account level) -> Block all public access. Then
+      check for buckets that legitimately serve public assets and move them to
+      CloudFront with an OAC.
+
+  - id: AWS-05
+    title: "No S3 bucket is publicly readable"
+    field: s3.public_buckets
+    operator: len_eq
+    value: 0
+    severity: critical
+    controls: [A.8.12, A.8.20]
+    maps_to: [MA09-08-06]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      An account-level block is necessary but not sufficient: an explicit bucket
+      policy can still expose an individual bucket.
+    remediation: >
+      Review each flagged bucket's policy and ACL. Remove Principal "*" grants
+      unless the bucket is intentionally public, in which case document why.
+
+  - id: AWS-06
+    title: "CloudTrail is enabled in all regions"
+    field: cloudtrail.enabled_all_regions
+    operator: is_true
+    severity: critical
+    controls: [A.8.15, A.8.16]
+    maps_to: [MA05-20-06]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Without an audit trail you cannot answer "what happened" after an
+      incident, and you cannot evidence any other control.
+    remediation: >
+      CloudTrail -> Trails -> Create trail -> Apply to all regions. Enable log
+      file validation. Ship to a dedicated, restricted log-archive account.
+
+  - id: AWS-07
+    title: "CloudTrail logs are not stored in a public bucket"
+    field: cloudtrail.log_bucket_public
+    operator: is_false
+    severity: high
+    controls: [A.8.15, A.5.33]
+    maps_to: [MA05-20-06]
+    frameworks: [iso-27001-2022]
+    rationale: >
+      A public log bucket nullifies the audit trail and leaks your entire
+      account activity map.
+    remediation: >
+      Make the CloudTrail bucket private, enable SSE-KMS, and restrict the
+      bucket policy to the CloudTrail service principal only.
+
+  - id: AWS-08
+    title: "RDS instances are encrypted at rest"
+    field: rds.unencrypted_instances
+    operator: len_eq
+    value: 0
+    severity: high
+    controls: [A.8.24, A.8.10]
+    maps_to: [MA09-08-06]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Unencrypted database storage means a snapshot shared for debugging, or a
+      decommissioned disk, exposes customer records.
+    remediation: >
+      For each unencrypted instance: create an encrypted read replica, promote
+      it, then repoint the application. Encryption cannot be toggled in place.
+
+  - id: AWS-09
+    title: "EBS volumes are encrypted at rest"
+    field: ec2.unencrypted_volumes
+    operator: len_eq
+    value: 0
+    severity: high
+    controls: [A.8.24, A.8.10]
+    maps_to: [MA09-08-06]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Instance volumes hold application data, swap and temp files. Unencrypted
+      volumes are readable if a snapshot leaks.
+    remediation: >
+      Enable EBS encryption by default per region, then migrate existing
+      unencrypted volumes by snapshot-copy with encryption.
+
+  - id: AWS-10
+    title: "Security groups do not expose SSH or RDP to the internet"
+    field: ec2.open_admin_ports
+    operator: len_eq
+    value: 0
+    severity: critical
+    controls: [A.8.20, A.8.22, A.8.9]
+    maps_to: [MA05-20-12]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Ports 22 and 3389 open to 0.0.0.0/0 are brute-forced continuously and are
+      the entry point in most small-company breaches.
+    remediation: >
+      Restrict the rule to a bastion or VPN CIDR, or replace it with SSM Session
+      Manager so no inbound port is needed at all.
+
+  - id: AWS-11
+    title: "Password policy enforces length and complexity"
+    field: iam.password_policy_min_length
+    operator: gte
+    value: 12
+    severity: medium
+    controls: [A.5.17]
+    maps_to: [MA05-20-11]
+    frameworks: [iso-27001-2022]
+    rationale: >
+      Minimum length is the single most effective password-policy setting.
+    remediation: >
+      IAM -> Account settings -> Edit password policy -> minimum length 12 or
+      more, with a reuse-prevention of at least 5.
+
+  - id: AWS-12
+    title: "Access keys are rotated within 90 days"
+    field: iam.stale_access_keys
+    operator: len_eq
+    value: 0
+    severity: high
+    controls: [A.5.17, A.8.2]
+    maps_to: [MA05-20-11]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      A key that has never been rotated cannot be assumed to be uncompromised.
+      Rotation limits the window of an undetected leak.
+    remediation: >
+      IAM -> Users -> Security credentials. Rotate each stale key: create new,
+      deploy, verify traffic, then deactivate and delete the old one.
+
+  - id: AWS-13
+    title: "GuardDuty threat detection is enabled"
+    field: guardduty.enabled
+    operator: is_true
+    severity: high
+    controls: [A.8.16, A.5.7]
+    maps_to: [MA05-20-06]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Detection is a distinct control from logging: CloudTrail records activity,
+      GuardDuty tells you which activity is hostile.
+    remediation: >
+      GuardDuty -> Enable in every region. Route findings to a monitored channel
+      (email or Slack) so a human actually sees them.

@@ -1,0 +1,16 @@
+Migrations live here.
+
+Generate the first one with:
+
+    cd backend
+    alembic revision --autogenerate -m "initial schema"
+
+Then apply:
+
+    alembic upgrade head
+
+Why this matters: the app previously created its schema with
+`Base.metadata.create_all()`. That is fine for a fresh install and useless for
+evolving one -- it never alters or drops an existing column, so a deployed
+instance silently diverges from the code. Alembic is the mechanism that turns a
+schema change into a reviewable, reversible, ordered migration.

@@ -1,0 +1,727 @@
+# ISO/IEC 27001:2022 — Annex A (sélection opérationnelle)
+# Cadre: ISO/IEC 27001:2022, Annexe A (93 mesures)
+# Note: cette sélection couvre les thèmes A.5 à A.8 les plus fréquemment
+# demandés par les acheteurs européens. Elle n'est pas exhaustive : ajouter les
+# contrôles manquants selon le périmètre du client.
+#
+# Le champ « maps_to » contient les correspondances vers les cadres marocains
+# (ids MA09-08-* et MA05-20-*), ce qui permet de produire en une passe un pack
+# de preuves utilisable à la fois pour l'ISO 27001 et pour la Loi 09-08.
+id: iso-27001-2022
+name: ISO/IEC 27001:2022 — Annexe A (sélection opérationnelle)
+version: '2022'
+locale: en
+authority: ISO/IEC
+source_url: https://www.iso.org/standard/27001
+description: 'Sélection opérationnelle des mesures de l''Annexe A de l''ISO/IEC 27001:2022, structurée
+  par thème (organisationnel, personnes, physique, technologique). Conçue pour une PME de 15 à 120 personnes
+  préparant une certification.
+
+  '
+disclaimer: 'La certification ISO/IEC 27001 est délivrée par un organisme de certification indépendant
+  et accrédité, jamais par un consultant. Ce fichier ne reproduit pas le texte normatif sous copyright
+  ISO : chaque contrôle est une reformulation opérationnelle destinée à l''évaluation.
+
+  '
+controls:
+- id: A.5.1
+  title: Politiques de sécurité de l'information
+  ref: A.5.1
+  theme: A.5 Organisationnel
+  objective: Une politique de sécurité et des politiques thématiques sont définies, approuvées par la
+    direction, publiées et revues.
+  weight: 2.0
+  evidence:
+  - Politique signée et datée
+  - Preuve de revue annuelle
+  - Preuve de communication
+  maps_to:
+  - MA05-20-01
+- id: A.5.2
+  title: Rôles et responsabilités en matière de sécurité
+  ref: A.5.2
+  theme: A.5 Organisationnel
+  objective: Les responsabilités de sécurité sont définies et attribuées.
+  weight: 1.0
+  evidence:
+  - Organigramme de sécurité
+  - Fiches de fonction
+  maps_to:
+  - MA05-20-04
+  - MA05-20-01
+  - MA09-08-11
+- id: A.5.7
+  title: Renseignement sur les menaces
+  ref: A.5.7
+  theme: A.5 Organisationnel
+  objective: Les informations sur les menaces pertinentes sont collectées et exploitées.
+  weight: 1.0
+  evidence:
+  - Sources de veille documentées
+  - Preuve de traitement des alertes
+  maps_to:
+  - MA05-20-02
+- id: A.5.9
+  title: Inventaire des informations et autres actifs associés
+  ref: A.5.9
+  theme: A.5 Organisationnel
+  objective: Un inventaire des actifs est tenu, avec propriétaire et classification.
+  weight: 2.0
+  evidence:
+  - Inventaire des actifs exporté
+  - Preuve de revue
+  maps_to:
+  - MA05-20-03
+  - MA05-20-02
+  - MA09-08-12
+- id: A.5.10
+  title: Usage acceptable des informations et des actifs
+  ref: A.5.10
+  theme: A.5 Organisationnel
+  objective: Les règles d'usage acceptable sont définies et appliquées.
+  weight: 1.0
+  evidence:
+  - Politique d'usage acceptable
+  - Accusé de réception signé
+  maps_to:
+  - MA05-20-03
+- id: A.5.12
+  title: Classification de l'information
+  ref: A.5.12
+  theme: A.5 Organisationnel
+  objective: L'information est classifiée selon une échelle définie.
+  weight: 2.0
+  evidence:
+  - Schéma de classification
+  - Exemples d'actifs classifiés
+  maps_to:
+  - MA05-20-03
+- id: A.5.13
+  title: Marquage de l'information
+  ref: A.5.13
+  theme: A.5 Organisationnel
+  objective: Les procédures de marquage sont définies et appliquées.
+  weight: 1.0
+  evidence:
+  - Procédure de marquage
+  - Échantillon de documents marqués
+  maps_to:
+  - MA05-20-03
+  - MA09-08-12
+- id: A.5.14
+  title: Transfert de l'information
+  ref: A.5.14
+  theme: A.5 Organisationnel
+  objective: Les transferts d'information sont encadrés par des règles et des accords.
+  weight: 1.0
+  evidence:
+  - Politique de transfert
+  - Accords de transfert
+  maps_to:
+  - MA09-08-05
+- id: A.5.15
+  title: Contrôle d'accès
+  ref: A.5.15
+  theme: A.5 Organisationnel
+  objective: L'accès est limité selon les besoins métier et le moindre privilège.
+  weight: 3.0
+  evidence:
+  - Politique de contrôle d'accès
+  - Matrice des droits
+  - Preuve de revue des accès
+  maps_to:
+  - MA05-20-11
+  - MA09-08-09
+- id: A.5.16
+  title: Gestion des identités
+  ref: A.5.16
+  theme: A.5 Organisationnel
+  objective: Le cycle de vie des identités est géré.
+  weight: 2.0
+  evidence:
+  - Procédure d'arrivée/départ
+  - Registre des identités
+  maps_to:
+  - MA05-20-11
+- id: A.5.17
+  title: Informations d'authentification
+  ref: A.5.17
+  theme: A.5 Organisationnel
+  objective: Les secrets d'authentification sont gérés et protégés.
+  weight: 2.0
+  evidence:
+  - Politique de mots de passe / MFA
+  - Preuve d'application
+  maps_to:
+  - MA05-20-11
+- id: A.5.18
+  title: Droits d'accès
+  ref: A.5.18
+  theme: A.5 Organisationnel
+  objective: Les droits d'accès sont attribués, révisés et retirés formellement.
+  weight: 2.0
+  evidence:
+  - Demandes d'accès tracées
+  - Preuve de retrait au départ
+  maps_to:
+  - MA05-20-11
+- id: A.5.19
+  title: Sécurité de l'information dans les relations avec les fournisseurs
+  ref: A.5.19
+  theme: A.5 Organisationnel
+  objective: Les exigences de sécurité sont convenues et suivies avec les fournisseurs.
+  weight: 3.0
+  evidence:
+  - Clauses de sécurité fournisseurs
+  - Registre des fournisseurs avec criticité
+  maps_to:
+  - MA09-08-03
+  - MA09-08-04
+  - MA05-20-09
+  - MA05-20-10
+- id: A.5.20
+  title: Traitement des accords fournisseurs
+  ref: A.5.20
+  theme: A.5 Organisationnel
+  objective: Les accords fournisseurs couvrent les obligations d'information et de sécurité.
+  weight: 2.0
+  evidence:
+  - Accords signés
+  - Preuve de revue périodique
+  maps_to:
+  - MA09-08-03
+  - MA09-08-05
+  - MA05-20-09
+  - MA05-20-10
+- id: A.5.21
+  title: Gestion de la sécurité dans la chaîne d'approvisionnement TIC
+  ref: A.5.21
+  theme: A.5 Organisationnel
+  objective: Les risques de la chaîne d'approvisionnement TIC sont gérés.
+  weight: 2.0
+  evidence:
+  - Cartographie de la chaîne TIC
+  - Analyse de risques fournisseurs
+  maps_to:
+  - MA09-08-03
+  - MA05-20-09
+- id: A.5.22
+  title: Surveillance et revue des services fournisseurs
+  ref: A.5.22
+  theme: A.5 Organisationnel
+  objective: La prestation des fournisseurs est surveillée et revue.
+  weight: 2.0
+  evidence:
+  - Revues de service documentées
+  - Indicateurs fournisseurs
+  maps_to:
+  - MA05-20-09
+  - MA05-20-10
+- id: A.5.24
+  title: Planification et préparation de la gestion des incidents
+  ref: A.5.24
+  theme: A.5 Organisationnel
+  objective: Des rôles, responsabilités et procédures de réponse aux incidents sont en place.
+  weight: 2.0
+  evidence:
+  - Plan de réponse aux incidents
+  - Liste des contacts d'urgence
+  maps_to:
+  - MA05-20-07
+- id: A.5.25
+  title: Évaluation des événements de sécurité et décisions
+  ref: A.5.25
+  theme: A.5 Organisationnel
+  objective: Les événements de sécurité sont évalués et classés.
+  weight: 2.0
+  evidence:
+  - Registre des incidents et triage
+  - Critères de classification
+  maps_to:
+  - MA05-20-07
+- id: A.5.26
+  title: Réponse aux incidents
+  ref: A.5.26
+  theme: A.5 Organisationnel
+  objective: Les incidents sont traités conformément aux procédures documentées.
+  weight: 2.0
+  evidence:
+  - Post-mortems d'incidents
+  - Preuve d'escalade
+  maps_to:
+  - MA05-20-07
+- id: A.5.29
+  title: Sécurité de l'information pendant une perturbation
+  ref: A.5.29
+  theme: A.5 Organisationnel
+  objective: Les mesures de sécurité sont maintenues pendant une perturbation.
+  weight: 1.0
+  evidence:
+  - Plan de continuité
+  - Compte rendu de test
+  maps_to:
+  - MA05-20-08
+- id: A.5.30
+  title: Préparation des TIC pour la continuité d'activité
+  ref: A.5.30
+  theme: A.5 Organisationnel
+  objective: La continuité des TIC est planifiée et testée.
+  weight: 2.0
+  evidence:
+  - Plan de reprise TIC
+  - Preuve de test de restauration
+  maps_to:
+  - MA05-20-08
+- id: A.5.31
+  title: Exigences légales, réglementaires et contractuelles
+  ref: A.5.31
+  theme: A.5 Organisationnel
+  objective: Les exigences légales et contractuelles applicables sont identifiées et tenues à jour.
+  weight: 2.0
+  evidence:
+  - Registre des obligations légales
+  - Preuve de veille
+  maps_to:
+  - MA09-08-01
+- id: A.5.33
+  title: Protection des enregistrements
+  ref: A.5.33
+  theme: A.5 Organisationnel
+  objective: Les enregistrements sont protégés contre la perte, la destruction et l'altération.
+  weight: 2.0
+  evidence:
+  - Politique de conservation
+  - Preuve de sauvegarde
+  maps_to:
+  - MA09-08-07
+  - MA05-20-10
+- id: A.5.34
+  title: Protection de la vie privée et des données personnelles
+  ref: A.5.34
+  theme: A.5 Organisationnel
+  objective: La vie privée et les données personnelles sont protégées conformément aux exigences applicables.
+  weight: 3.0
+  evidence:
+  - Registre des traitements
+  - Politique de confidentialité
+  - Preuve de formalités CNDP
+  maps_to:
+  - MA09-08-01
+  - MA09-08-02
+  - MA09-08-04
+  - MA09-08-12
+  - MA09-08-05
+  - MA09-08-08
+  - MA09-08-10
+- id: A.6.3
+  title: Sensibilisation, éducation et formation à la sécurité
+  ref: A.6.3
+  theme: A.6 Personnes
+  objective: Le personnel est sensibilisé et formé aux politiques de sécurité.
+  weight: 2.0
+  evidence:
+  - Programme de formation
+  - Taux de complétion
+  - Accusés de réception
+  maps_to:
+  - MA09-08-09
+  - MA05-20-04
+- id: A.6.4
+  title: Processus disciplinaire
+  ref: A.6.4
+  theme: A.6 Personnes
+  objective: Un processus disciplinaire formalisé traite les violations de sécurité.
+  weight: 1.0
+  evidence:
+  - Procédure disciplinaire
+  - Registre des cas traités
+  maps_to:
+  - MA09-08-09
+- id: A.6.5
+  title: Responsabilités après la fin ou le changement d'emploi
+  ref: A.6.5
+  theme: A.6 Personnes
+  objective: Les responsabilités de sécurité subsistent après le départ.
+  weight: 1.0
+  evidence:
+  - Clause de confidentialité post-départ
+  - Checklist de sortie
+  maps_to:
+  - MA09-08-09
+- id: A.7.1
+  title: Périmètres de sécurité physique
+  ref: A.7.1
+  theme: A.7 Physique
+  objective: Des périmètres physiques protègent les zones contenant l'information.
+  weight: 1.0
+  evidence:
+  - Plan des zones
+  - Contrôles d'accès physiques
+  maps_to:
+  - MA05-20-03
+- id: A.7.4
+  title: Surveillance de la sécurité physique
+  ref: A.7.4
+  theme: A.7 Physique
+  objective: Les locaux sont surveillés en continu.
+  weight: 1.0
+  evidence:
+  - Preuve de vidéosurveillance ou de gardiennage
+  - Journaux d'accès
+  maps_to:
+  - MA05-20-06
+- id: A.8.1
+  title: Terminaux utilisateurs
+  ref: A.8.1
+  theme: A.8 Technologique
+  objective: Les terminaux sont inventoriés et configurés de manière sécurisée.
+  weight: 2.0
+  evidence:
+  - Inventaire des terminaux
+  - Configuration de référence
+  - Preuve de chiffrement disque
+  maps_to:
+  - MA05-20-11
+- id: A.8.2
+  title: Privilèges d'accès
+  ref: A.8.2
+  theme: A.8 Technologique
+  objective: Les privilèges sont restreints et gérés.
+  weight: 3.0
+  evidence:
+  - Liste des comptes à privilèges
+  - Preuve de revue
+  - MFA sur les comptes admin
+  maps_to:
+  - MA05-20-11
+- id: A.8.5
+  title: Authentification sécurisée
+  ref: A.8.5
+  theme: A.8 Technologique
+  objective: Des technologies d'authentification sécurisées sont déployées.
+  weight: 2.0
+  evidence:
+  - Configuration MFA
+  - Politique de mot de passe
+  maps_to:
+  - MA05-20-11
+- id: A.8.8
+  title: Gestion des vulnérabilités techniques
+  ref: A.8.8
+  theme: A.8 Technologique
+  objective: Les vulnérabilités techniques sont identifiées et corrigées en temps utile.
+  weight: 3.0
+  evidence:
+  - Rapports de scan de vulnérabilités
+  - Délais de remédiation
+  - Suivi des exceptions
+  maps_to:
+  - MA05-20-02
+  - MA05-20-05
+- id: A.8.9
+  title: Gestion des configurations
+  ref: A.8.9
+  theme: A.8 Technologique
+  objective: Les configurations de sécurité sont définies et appliquées.
+  weight: 2.0
+  evidence:
+  - Configurations de référence
+  - Preuve de dérive détectée
+  maps_to:
+  - MA05-20-11
+- id: A.8.10
+  title: Suppression de l'information
+  ref: A.8.10
+  theme: A.8 Technologique
+  objective: L'information est supprimée de manière sûre lorsqu'elle n'est plus nécessaire.
+  weight: 2.0
+  evidence:
+  - Procédure de suppression
+  - Certificats de destruction
+  maps_to:
+  - MA09-08-07
+  - MA05-20-09
+  - MA09-08-06
+- id: A.8.11
+  title: Masquage des données
+  ref: A.8.11
+  theme: A.8 Technologique
+  objective: Le masquage des données est utilisé conformément à la politique.
+  weight: 1.0
+  evidence:
+  - Politique de masquage
+  - Exemples d'environnements masqués
+  maps_to:
+  - MA09-08-02
+  - MA09-08-06
+- id: A.8.12
+  title: Prévention de la fuite de données
+  ref: A.8.12
+  theme: A.8 Technologique
+  objective: Des mesures de prévention de la fuite de données sont appliquées.
+  weight: 2.0
+  evidence:
+  - Outils DLP ou équivalent
+  - Journaux d'alertes
+  maps_to:
+  - MA09-08-02
+  - MA09-08-06
+- id: A.8.13
+  title: Sauvegarde de l'information
+  ref: A.8.13
+  theme: A.8 Technologique
+  objective: Les sauvegardes sont réalisées et testées régulièrement.
+  weight: 3.0
+  evidence:
+  - Politique de sauvegarde
+  - Preuve de restauration testée
+  maps_to:
+  - MA05-20-08
+- id: A.8.15
+  title: Journalisation
+  ref: A.8.15
+  theme: A.8 Technologique
+  objective: Les événements sont journalisés et les journaux protégés.
+  weight: 3.0
+  evidence:
+  - Liste des sources de journaux
+  - Durées de rétention
+  - Preuve d'intégrité
+  maps_to:
+  - MA05-20-06
+  - MA09-08-06
+- id: A.8.16
+  title: Activités de supervision
+  ref: A.8.16
+  theme: A.8 Technologique
+  objective: Les réseaux, systèmes et applications sont supervisés pour détecter les anomalies.
+  weight: 2.0
+  evidence:
+  - Configuration des alertes
+  - Preuve de revue
+  maps_to:
+  - MA05-20-06
+  - MA09-08-06
+- id: A.8.24
+  title: Utilisation de la cryptographie
+  ref: A.8.24
+  theme: A.8 Technologique
+  objective: Une politique cryptographique et une gestion des clés sont définies et appliquées.
+  weight: 2.0
+  evidence:
+  - Politique cryptographique
+  - Inventaire des clés et algorithmes
+  - Procédure de rotation
+  maps_to:
+  - MA09-08-06
+- id: A.8.25
+  title: Cycle de vie de développement sécurisé
+  ref: A.8.25
+  theme: A.8 Technologique
+  objective: Des règles de développement sécurisé sont définies et appliquées.
+  weight: 2.0
+  evidence:
+  - Guide de développement sécurisé
+  - Revues de code
+  maps_to:
+  - MA05-20-05
+- id: A.8.26
+  title: Exigences de sécurité des applications
+  ref: A.8.26
+  theme: A.8 Technologique
+  objective: Les exigences de sécurité sont identifiées lors du développement.
+  weight: 1.0
+  evidence:
+  - Exigences documentées
+  - Traçabilité
+  maps_to:
+  - MA05-20-05
+- id: A.8.28
+  title: Codage sécurisé
+  ref: A.8.28
+  theme: A.8 Technologique
+  objective: Des principes de codage sécurisé sont appliqués.
+  weight: 2.0
+  evidence:
+  - Règles de codage
+  - Résultats d'analyse statique
+  maps_to:
+  - MA05-20-05
+- id: A.8.29
+  title: Tests de sécurité dans le développement et l'acceptation
+  ref: A.8.29
+  theme: A.8 Technologique
+  objective: Des tests de sécurité sont réalisés dans le cycle de développement.
+  weight: 2.0
+  evidence:
+  - Plan de test de sécurité
+  - Rapports de test
+  maps_to:
+  - MA05-20-05
+- id: A.8.32
+  title: Gestion des changements
+  ref: A.8.32
+  theme: A.8 Technologique
+  objective: Les changements sont soumis à des procédures de gestion formalisées.
+  weight: 2.0
+  evidence:
+  - Procédure de changement
+  - Historique des changements et approbations
+  maps_to:
+  - MA05-20-05
+- id: A.8.34
+  title: Protection des systèmes d'information pendant les tests d'audit
+  ref: A.8.34
+  theme: A.8 Technologique
+  objective: Les tests d'audit n'altèrent pas la production.
+  weight: 1.0
+  evidence:
+  - Plan de test d'audit
+  - Accord écrit du client
+- id: A.5.11
+  title: Restitution des actifs
+  ref: A.5.11
+  theme: A.5 Organisationnel
+  objective: Le personnel et les tiers restituent les actifs de l organisation a la fin de leur engagement.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-03
+- id: A.5.23
+  title: Securite des services cloud
+  ref: A.5.23
+  theme: A.5 Organisationnel
+  objective: Les processus d acquisition et d utilisation des services cloud sont etablis selon les exigences
+    de securite.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-09
+  - MA05-20-10
+- id: A.5.27
+  title: Apprentissage des incidents de securite
+  ref: A.5.27
+  theme: A.5 Organisationnel
+  objective: Les connaissances acquises lors des incidents renforcent les mesures de securite.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-07
+- id: A.5.28
+  title: Collecte de preuves
+  ref: A.5.28
+  theme: A.5 Organisationnel
+  objective: Des procedures de collecte et de conservation des preuves sont etablies et appliquees.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-07
+- id: A.5.4
+  title: Roles et responsabilites de securite
+  ref: A.5.4
+  theme: A.5 Organisationnel
+  objective: Les roles et responsabilites en matiere de securite de l information sont definis et attribues.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-01
+  - MA05-20-04
+  - MA09-08-11
+- id: A.6.6
+  title: Accords de confidentialite
+  ref: A.6.6
+  theme: A.6 Personnes
+  objective: Les accords de confidentialite sont identifies, documentes, revus et signes.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA09-08-09
+- id: A.8.14
+  title: Redondance des moyens de traitement
+  ref: A.8.14
+  theme: A.8 Technologique
+  objective: Les moyens de traitement sont mis en oeuvre avec une redondance suffisante.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-08
+- id: A.8.17
+  title: Synchronisation des horloges
+  ref: A.8.17
+  theme: A.8 Technologique
+  objective: Les horloges des systemes sont synchronisees a des sources de reference approuvees.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-06
+- id: A.8.20
+  title: Securite des reseaux
+  ref: A.8.20
+  theme: A.8 Technologique
+  objective: Les reseaux et les dispositifs reseau sont securises, geres et maitrises.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-12
+- id: A.8.21
+  title: Securite des services reseau
+  ref: A.8.21
+  theme: A.8 Technologique
+  objective: Les mecanismes de securite, niveaux de service et exigences des services reseau sont identifies.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-12
+- id: A.8.22
+  title: Cloisonnement des reseaux
+  ref: A.8.22
+  theme: A.8 Technologique
+  objective: Les groupes de services d information, d utilisateurs et de systemes sont cloisonnes.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-12
+- id: A.8.23
+  title: Filtrage web
+  ref: A.8.23
+  theme: A.8 Technologique
+  objective: L acces aux sites web externes est gere et filtre conformement a la politique.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-12
+- id: A.8.33
+  title: Donnees de test
+  ref: A.8.33
+  theme: A.8 Technologique
+  objective: Les donnees de test sont selectionnees, protegees et gerees de maniere appropriee.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA05-20-05
+
+- id: A.8.4
+  title: Acces au code source
+  ref: A.8.4
+  theme: A.8 Technologique
+  objective: L acces en lecture et en ecriture au code source, aux outils de developpement et aux bibliotheques est gere de maniere appropriee.
+  weight: 2.0
+  evidence:
+  - Politique d acces au depot de code
+  - Liste des personnes ayant acces en ecriture
+  - Preuve de revue des acces
+  maps_to:
+  - MA05-20-11

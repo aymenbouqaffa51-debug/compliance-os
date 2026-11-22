@@ -1,0 +1,125 @@
+# Production-shaped deployment.
+#
+#   cp .env.example .env      # then fill in the two secrets
+#   docker compose up -d --build
+#
+# Everything binds to localhost except Caddy, which terminates TLS on 80/443.
+# The default region is an EU VPS (OVHcloud France, Hetzner DE/FI); that is both
+# the cheapest option and the CNDP-clean one, because France, Germany and
+# Finland are all on the 32-state adequacy list.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-compliance}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-compliance}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-compliance} -d ${POSTGRES_DB:-compliance}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [internal]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks: [internal]
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-compliance}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-compliance}
+      COMPLIANCE_JWT_SECRET: ${COMPLIANCE_JWT_SECRET:?set COMPLIANCE_JWT_SECRET in .env}
+      COMPLIANCE_SECRET_KEY: ${COMPLIANCE_SECRET_KEY:?set COMPLIANCE_SECRET_KEY in .env}
+      COMPLIANCE_CORS_ORIGINS: ${PUBLIC_ORIGIN:-https://localhost}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    expose: ["8000"]
+    networks: [internal]
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    command: ["python", "-m", "celery", "-A", "app.worker.celery", "worker", "--loglevel=info", "--concurrency=2"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-compliance}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-compliance}
+      COMPLIANCE_JWT_SECRET: ${COMPLIANCE_JWT_SECRET}
+      COMPLIANCE_SECRET_KEY: ${COMPLIANCE_SECRET_KEY}
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [db, redis]
+    networks: [internal]
+
+  beat:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    command: ["python", "-m", "celery", "-A", "app.worker.celery", "beat", "--loglevel=info"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-compliance}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-compliance}
+      COMPLIANCE_JWT_SECRET: ${COMPLIANCE_JWT_SECRET}
+      COMPLIANCE_SECRET_KEY: ${COMPLIANCE_SECRET_KEY}
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [db, redis]
+    networks: [internal]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8000
+      NODE_ENV: production
+    depends_on: [backend]
+    expose: ["3000"]
+    networks: [internal]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PUBLIC_DOMAIN: ${PUBLIC_DOMAIN:-localhost}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@example.com}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [frontend, backend]
+    networks: [internal]
+
+volumes:
+  db-data:
+  redis-data:
+  caddy-data:
+  caddy-config:
+
+networks:
+  internal:
+    driver: bridge

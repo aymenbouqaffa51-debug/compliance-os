@@ -1,0 +1,346 @@
+# Loi 05-20 — Cybersécurité (Maroc)
+# Cadre: loi n° 05-20 (dahir 1-20-69, 25 juillet 2020), décrets 2-21-406 et 2-24-921
+# Autorité: DGSSI — Administration de la Défense Nationale
+#
+# ⚠️ AVERTISSEMENT CRITIQUE DE PÉRIMÈTRE
+# La loi 05-20 s'applique aux « entités » (administrations, collectivités,
+# établissements et entreprises publics), aux infrastructures d'importance vitale
+# (IIV) et à cinq catégories d'« opérateurs ». Elle ne crée PAS d'obligation
+# générale pour les sociétés privées ordinaires.
+#
+# L'article 49 punit de 200 000 à 400 000 MAD quiconque fournit des prestations
+# d'audit de sécurité de systèmes sensibles d'IIV, ou des prestations de
+# cybersécurité, sans qualification DGSSI. Ce cadre est donc utilisé ici comme
+# RÉFÉRENTIEL DE BONNES PRATIQUES pour des clients privés, et non comme base
+# d'une obligation légale. Ne jamais présenter ces contrôles comme obligatoires
+# pour une société privée non entité et non IIV.
+id: loi-05-20
+name: Loi 05-20 — Cybersécurité (Maroc) — référentiel de bonnes pratiques
+version: '2020'
+locale: fr
+authority: DGSSI — Direction Générale de la Sécurité des Systèmes d'Information
+source_url: https://www.dgssi.gov.ma
+description: 'Exigences de sécurité des systèmes d''information issues de la loi 05-20 et de ses décrets
+  d''application. Utilisé comme référentiel de maturité pour les clients privés, et comme base de préparation
+  lorsqu''un client est fournisseur d''une entité publique ou d''une IIV.
+
+  '
+disclaimer: 'Ce n''est pas un avis juridique. La loi 05-20 ne s''applique pas aux sociétés privées ordinaires
+  ; ces contrôles sont proposés comme bonnes pratiques. Ne jamais qualifier votre prestation d''« audit
+  de sécurité » ni de « prestation de cybersécurité » au sens de l''article 49 sans qualification DGSSI
+  (200 000 à 400 000 MAD d''amende).
+
+  '
+controls:
+- id: MA05-20-01
+  title: Politique de sécurité des systèmes d'information (PSSI)
+  ref: art. 3-9
+  theme: Gouvernance
+  objective: 'Une politique de sécurité formelle, approuvée par la direction, définit les objectifs, les
+    rôles, les responsabilités et les règles de sécurité.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - PSSI approuvée et datée, avec mention de l'approbateur
+  - Preuve de diffusion aux collaborateurs concernés
+  - Date de dernière revue
+  guidance: 'Pour un client privé, la PSSI est attendue par tout client européen et par l''Annexe A de
+    l''ISO 27001 (A.5.1). Elle est également le socle d''un futur passage au statut d''entité ou de fournisseur
+    d''entité.
+
+    '
+  maps_to:
+  - A.5.1
+  - A.5.2
+  - A.5.4
+  - CC1.2
+- id: MA05-20-02
+  title: Analyse et traitement des risques
+  ref: art. 3-9 ; décret 2-21-406 art. 11
+  theme: Risques
+  objective: 'Une analyse de risques documentée identifie les actifs, les menaces, les vulnérabilités
+    et les impacts, et débouche sur un plan de traitement.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Rapport d'analyse de risques daté et méthodologie employée
+  - Registre des risques avec cotation et propriétaire
+  - Plan de traitement et preuve de suivi
+  guidance: 'L''échelle d''impact du décret 2-21-406 art. 11 est à quatre niveaux : très grave, grave,
+    modéré, limité. Une matrice 4x4 alignée sur cette échelle facilite la conversation avec un client
+    fournisseur d''entité publique.
+
+    '
+  maps_to:
+  - A.5.7
+  - A.8.8
+  - A.5.9
+  - CC3.1
+  - CC3.2
+  - CC7.1
+- id: MA05-20-03
+  title: Classification des actifs et des données
+  ref: décret 2-21-406 art. 10-15
+  theme: Actifs
+  objective: 'Les systèmes et les données sont classifiés selon une échelle formelle, et la classification
+    est revue au moins tous les trois ans.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Registre de classification des actifs et des données
+  - Preuve de revue (procès-verbal ou journal) de moins de 3 ans
+  guidance: 'Le décret 2-21-406 distingue deux échelles : les systèmes (classes A à D, où A et B sont
+    « sensibles ») et les données (TRÈS SECRET, SECRET, CONFIDENTIEL, DIFFUSION RESTREINTE, seuls les
+    deux premiers étant « données sensibles »). La revue est exigée au moins tous les 3 ans (art. 15).
+
+    '
+  maps_to:
+  - A.5.9
+  - A.5.10
+  - A.5.11
+  - A.5.12
+  - A.5.13
+  - A.7.1
+  - C1.1
+- id: MA05-20-04
+  title: Désignation d'un responsable de la sécurité (RSSI)
+  ref: art. 3-9
+  theme: Gouvernance
+  objective: 'Un responsable de la sécurité de l''information est désigné, dispose de l''autorité et de
+    l''indépendance nécessaires, et est identifié auprès des tiers.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Lettre de désignation précisant le rattachement et l'autorité
+  - Fiche de fonction et preuve de compétence
+  guidance: 'Pour une PME de 20 à 50 personnes, la fonction peut être portée à temps partiel par le CTO
+    ou par un RSSI externalisé. L''important est la désignation formelle et l''indépendance, pas le temps
+    plein.
+
+    '
+  maps_to:
+  - A.5.2
+  - A.5.4
+  - A.6.3
+  - CC1.3
+  - CC1.4
+- id: MA05-20-05
+  title: Audit des systèmes exposant des services numériques avant mise en service
+  ref: art. 3-9
+  theme: Assurance
+  objective: 'Tout système offrant des services numériques à des tiers est évalué avant sa mise en production,
+    puis à intervalles réguliers.
+
+    '
+  applicability: conditional
+  condition: client.has_cloud or client.export_markets
+  weight: 2.0
+  evidence:
+  - Rapport de revue de sécurité avant mise en production
+  - Registre des revues périodiques
+  guidance: 'Pour une société privée, l''équivalent est la revue de sécurité avant mise en production
+    et le test d''intrusion périodique — ce dernier devant être confié à un prestataire qualifié si le
+    client est fournisseur d''une IIV.
+
+    '
+  maps_to:
+  - A.8.25
+  - A.8.29
+  - A.8.33
+  - A.8.8
+  - A.8.26
+  - A.8.28
+  - A.8.32
+  - CC3.4
+  - CC6.6
+  - CC7.1
+  - CC8.1
+- id: MA05-20-06
+  title: Détection, supervision et journalisation
+  ref: art. 26-34
+  theme: Détection
+  objective: 'Des moyens de supervision et de détection sont en place, et les journaux techniques sont
+    conservés et protégés.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Inventaire des sources de journaux et durées de rétention
+  - Configuration de la supervision et des alertes
+  - Preuve de revue des journaux
+  guidance: 'Les « opérateurs » au sens de la loi 05-20 doivent conserver les données de connexion, journaux
+    et traces de sécurité pendant un an (art. 26-34). Pour une société privée, aligner la rétention sur
+    cette durée est une bonne pratique défendable et facile à expliquer à un client européen.
+
+    '
+  maps_to:
+  - A.8.15
+  - A.8.16
+  - A.8.17
+  - A.7.4
+  - CC7.2
+- id: MA05-20-07
+  title: Gestion des incidents et déclaration
+  ref: art. 8, 30, 33 ; décret 2-21-406 art. 42
+  theme: Incidents
+  objective: 'Une procédure de gestion des incidents existe, est testée, et les incidents sont déclarés
+    à l''autorité nationale lorsqu''une obligation s''applique.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Procédure de gestion des incidents et registre des incidents
+  - Preuve d'exercice ou de test de la procédure
+  - 'Pour les entités et IIV : preuve de déclaration à la DGSSI'
+  guidance: 'Les entités et IIV doivent déclarer les incidents dès qu''ils en ont connaissance (art. 8)
+    et les prestataires de services numériques doivent déclarer ceux à impact significatif (art. 33).
+    Une société privée non concernée n''a pas cette obligation légale : le prévoir par contrat est un
+    choix commercial, à annoncer comme tel.
+
+    '
+  maps_to:
+  - A.5.24
+  - A.5.25
+  - A.5.26
+  - A.5.27
+  - A.5.28
+  - CC7.3
+  - CC7.4
+- id: MA05-20-08
+  title: Plan de continuité et de reprise d'activité testé
+  ref: art. 3-9 ; art. 12
+  theme: Continuité
+  objective: 'Un plan de continuité et de reprise existe, couvre les systèmes critiques, et fait l''objet
+    de tests documentés.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Plan de continuité et de reprise approuvé
+  - Compte rendu du dernier test avec date et résultat
+  - Preuve de sauvegarde et de restauration testée
+  guidance: 'Le test de restauration est le contrôle qui échoue le plus souvent, et celui qui a le plus
+    d''impact réel. Le tester avant le premier client reste la meilleure décision technique de l''année.
+
+    '
+  maps_to:
+  - A.5.29
+  - A.5.30
+  - A.8.13
+  - A.8.14
+  - CC7.5
+  - CC9.1
+- id: MA05-20-09
+  title: Réversibilité et sortie de la relation d'externalisation
+  ref: art. 12
+  theme: Tiers
+  objective: 'Tout contrat d''externalisation d''un système sensible prévoit l''auditabilité, la réversibilité,
+    les exigences de sécurité et les niveaux de service, et est soumis au droit marocain.
+
+    '
+  applicability: conditional
+  condition: client.handles_sensitive_data or client.is_public_entity
+  weight: 2.0
+  evidence:
+  - Clauses d'auditabilité, de réversibilité et de niveaux de service
+  - Plan de sortie documenté et testé
+  - Preuve de restitution et de suppression certifiée des données
+  guidance: 'L''article 12 exige que le contrat d''externalisation d''un système sensible soit soumis
+    au droit marocain et comporte ces engagements. Le décret 2-24-921 art. 16 impose au prestataire Cloud
+    qualifié de restituer puis certifier la suppression des données en fin de contrat.
+
+    '
+  maps_to:
+  - A.5.19
+  - A.5.20
+  - A.5.21
+  - A.5.22
+  - A.5.23
+  - A.8.10
+  - CC9.2
+- id: MA05-20-10
+  title: Hébergement des données sensibles sur le territoire national
+  ref: art. 11, 14 ; décret 2-24-921
+  theme: Localisation
+  objective: 'Lorsque le client est une entité ou une IIV, les données et systèmes sensibles sont hébergés
+    exclusivement au Maroc chez un prestataire Cloud qualifié.
+
+    '
+  applicability: conditional
+  condition: client.is_public_entity or client.is_iiv or client.hosts_within_morocco
+  weight: 3.0
+  evidence:
+  - Localisation de l'hébergement et région de stockage
+  - Statut de qualification DGSSI du prestataire Cloud (niveau 1 ou 2)
+  - Dossier de dérogation art. 17 si le prestataire n'est pas qualifié
+  guidance: 'Attention au périmètre : l''article 11 vise les entités et les IIV, et le décret 2-21-406
+    art. 13 limite les « données sensibles » aux classes TRÈS SECRET et SECRET. Le décret 2-24-921 impose
+    un prestataire Cloud qualifié : niveau 1 pour les systèmes sensibles, niveau 2 pour les données sensibles
+    (capital majoritairement marocain, traitement et supervision exclusivement au Maroc, personnel de
+    nationalité marocaine).
+
+    '
+  maps_to:
+  - A.5.19
+  - A.5.20
+  - A.5.22
+  - A.5.23
+  - A.5.33
+- id: MA05-20-11
+  title: Gestion des accès et des habilitations
+  ref: art. 3-9, 26-34
+  theme: Accès
+  objective: 'Les accès aux systèmes et aux données sont limités au besoin d''en connaître, révisés périodiquement,
+    et les comptes privilégiés sont maîtrisés.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Matrice des habilitations et preuve de revue périodique
+  - Liste des comptes privilégiés et justification
+  - Configuration MFA sur les accès distants et administratifs
+  maps_to:
+  - A.5.15
+  - A.5.16
+  - A.5.17
+  - A.5.18
+  - A.8.2
+  - A.8.5
+  - A.8.1
+  - A.8.9
+  - CC5.2
+  - CC6.1
+  - CC6.2
+  - CC6.3
+- id: MA05-20-12
+  title: Sécurité des réseaux et des interconnexions
+  ref: art. 26-34
+  theme: Réseau
+  objective: 'Les réseaux sont segmentés, les flux sont maîtrisés et documentés, et les interconnexions
+    avec les tiers sont encadrées.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Schéma d'architecture réseau et cartographie des flux
+  - Règles de filtrage et justification
+  maps_to:
+  - A.8.20
+  - A.8.21
+  - A.8.22
+  - A.8.23
+  - CC6.3
+  - CC6.6

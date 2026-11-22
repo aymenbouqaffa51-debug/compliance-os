@@ -1,0 +1,199 @@
+# Perimeter checks: TLS, HTTP security headers, email authentication.
+# These are the cheapest checks to run and the first thing a European buyer's
+# security team will look at, because they need no credentials at all.
+
+source: perimeter
+collector: collect_perimeter
+
+checks:
+  - id: PER-01
+    title: "TLS 1.2 or newer is negotiated"
+    field: tls.min_version
+    operator: version_gte
+    value: "1.2"
+    severity: high
+    controls: [A.8.24, A.8.20]
+    maps_to: [MA05-20-12]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      TLS 1.0 and 1.1 are deprecated and are treated as a finding by every
+      enterprise procurement review. This is visible without any access.
+    remediation: >
+      Restrict the listener to TLS 1.2+ (prefer 1.3). In nginx:
+      ssl_protocols TLSv1.2 TLSv1.3; then re-test with openssl s_client.
+
+  - id: PER-02
+    title: "TLS certificate does not expire within 30 days"
+    field: tls.days_to_expiry
+    operator: gt
+    value: 30
+    severity: critical
+    controls: [A.8.24, A.5.30]
+    maps_to: [MA05-20-08]
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      An expired certificate is a hard outage and a visible trust failure. It is
+      also entirely preventable with automation.
+    remediation: >
+      Enable automatic renewal (certbot / ACME / your load balancer's managed
+      certificate). Add an expiry alert at 30 and 14 days.
+
+  - id: PER-03
+    title: "HTTP Strict-Transport-Security is set"
+    field: headers.hsts_present
+    operator: is_true
+    severity: medium
+    controls: [A.8.20, A.8.24]
+    maps_to: [MA05-20-12]
+    frameworks: [iso-27001-2022]
+    rationale: >
+      Without HSTS the first request of every session is plaintext and can be
+      intercepted before the redirect.
+    remediation: >
+      Add: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  - id: PER-04
+    title: "HSTS max-age is at least one year"
+    field: headers.hsts_max_age
+    operator: gte
+    value: 31536000
+    severity: low
+    controls: [A.8.20]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      A short max-age gives most of the protection away. One year is the
+      threshold for preload eligibility.
+    remediation: >
+      Raise the header to max-age=31536000.
+
+  - id: PER-05
+    title: "Content-Security-Policy is present"
+    field: headers.csp_present
+    operator: is_true
+    severity: medium
+    controls: [A.8.23, A.8.25]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      CSP is the main browser-level defence against script injection. Its
+      absence is a standard finding in a buyer's questionnaire.
+    remediation: >
+      Start with Content-Security-Policy: default-src 'self'; and tighten.
+      Use report-only mode first to measure breakage.
+
+  - id: PER-06
+    title: "X-Content-Type-Options is nosniff"
+    field: headers.x_content_type_options
+    operator: eq
+    value: "nosniff"
+    severity: low
+    controls: [A.8.23]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      Prevents MIME-sniffing attacks; one line of configuration.
+    remediation: >
+      Add: X-Content-Type-Options: nosniff
+
+  - id: PER-07
+    title: "Clickjacking is mitigated (X-Frame-Options or frame-ancestors)"
+    field: headers.frame_protection
+    operator: is_true
+    severity: low
+    controls: [A.8.23]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      Framing protection stops UI-redress attacks against authenticated users.
+    remediation: >
+      Add: X-Frame-Options: DENY, or CSP frame-ancestors 'none'.
+
+  - id: PER-08
+    title: "Server banner does not leak a precise version"
+    field: headers.server_banner_discloses_version
+    operator: is_false
+    severity: low
+    controls: [A.8.9]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      A precise version banner tells an attacker which CVE to try first. This is
+      a hardening note, not a breach: record it, do not panic about it.
+    remediation: >
+      Disable server tokens (nginx: server_tokens off; Apache: ServerTokens Prod).
+
+  - id: PER-09
+    title: "SPF record exists"
+    field: dns.spf_present
+    operator: is_true
+    severity: high
+    controls: [A.8.20, A.5.14]
+    maps_to: []
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      Without SPF, anyone can send mail claiming to be your domain, which is how
+      invoice-fraud attacks reach your customers.
+    remediation: >
+      Publish a TXT record: v=spf1 include:<your-provider> -all. End with -all,
+      not ~all, once you are confident.
+
+  - id: PER-10
+    title: "DMARC record exists"
+    field: dns.dmarc_present
+    operator: is_true
+    severity: high
+    controls: [A.8.20, A.5.14]
+    maps_to: []
+    frameworks: [iso-27001-2022, soc2-tsc]
+    rationale: >
+      DMARC is the control that actually stops domain spoofing; SPF and DKIM
+      alone only describe, they do not enforce.
+    remediation: >
+      Publish _dmarc TXT: v=DMARC1; p=none; rua=mailto:dmarc@yourdomain. Move to
+      p=quarantine then p=reject once reports are clean.
+
+  - id: PER-11
+    title: "DMARC policy enforces rejection or quarantine"
+    field: dns.dmarc_policy
+    operator: in
+    value: ["quarantine", "reject"]
+    severity: medium
+    controls: [A.8.20]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      p=none is monitoring only. A buyer's security team will notice that the
+      domain is still spoofable.
+    remediation: >
+      After a period of clean DMARC reports, change the policy to p=quarantine,
+      then p=reject.
+
+  - id: PER-12
+    title: "A DKIM selector resolves"
+    field: dns.dkim_present
+    operator: is_true
+    severity: medium
+    controls: [A.8.20, A.5.14]
+    maps_to: []
+    frameworks: [iso-27001-2022]
+    rationale: >
+      DKIM gives the receiving server a cryptographic check that the message was
+      authorised by your domain.
+    remediation: >
+      Enable DKIM signing at your mail provider and publish the selector TXT
+      record they generate.
+
+  - id: PER-13
+    title: "DNS does not allow arbitrary zone transfer"
+    field: dns.zone_transfer_open
+    operator: is_false
+    severity: medium
+    controls: [A.8.20, A.8.9]
+    maps_to: [MA05-20-12]
+    frameworks: [iso-27001-2022]
+    rationale: >
+      An open AXFR hands an attacker your complete internal host list.
+    remediation: >
+      Restrict zone transfers to known secondaries by IP in the nameserver
+      configuration.

@@ -1,0 +1,296 @@
+# Loi 09-08 — Protection des données à caractère personnel (Maroc)
+# Cadre: loi n° 09-08 (dahir 1-09-15, 18 février 2009), BO 5714, décret 2-09-165
+# Autorité: CNDP — https://www.cndp.ma
+#
+# ATTENTION: contenu de référence à valeur pédagogique. Ce n'est pas un avis
+# juridique. Les contrôles doivent être revus contre le texte primaire avant
+# toute utilisation contractuelle. Les numéros d'articles renvoient à la
+# traduction française officielle.
+id: loi-09-08
+name: Loi 09-08 — Protection des données personnelles (Maroc)
+version: '2009'
+locale: fr
+authority: CNDP — Commission Nationale de contrôle de la protection des Données à caractère Personnel
+source_url: https://www.cndp.ma
+description: 'Obligations de protection des données personnelles applicables aux responsables de traitement
+  établis au Maroc, et à leurs sous-traitants. C''est le texte qui vous engage personnellement lorsque
+  vous traitez des données RH ou d''identité pour le compte d''un client.
+
+  '
+disclaimer: 'Cette fiche de contrôle est une synthèse établie pour l''outillage, non un avis juridique.
+  Vérifier chaque contrôle contre le texte officiel avant engagement contractuel. Les sanctions vont de
+  10 000 à 300 000 MAD et sont doublées pour les personnes morales (art. 64).
+
+  '
+controls:
+- id: MA09-08-01
+  title: Formalité préalable réalisée (déclaration ou autorisation)
+  ref: art. 12, 19, 20
+  theme: Formalités
+  objective: 'Le traitement a fait l''objet de la formalité correcte auprès de la CNDP : déclaration dans
+    le cas général, autorisation préalable dans les cas de l''article 12.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Récépissé de déclaration (formulaires F211 ou F214) ou décision d'autorisation (F112/F113)
+  - Références du traitement telles qu'apparaissant au registre national CNDP
+  guidance: 'Le récépissé est délivré sous 24 heures (art. 19) ; la CNDP peut requalifier en autorisation
+    sous 8 jours (art. 20). L''autorisation est décidée sous 2 mois renouvelables, à compter d''un dossier
+    complet.
+
+    '
+  maps_to:
+  - A.5.34
+  - A.5.31
+- id: MA09-08-02
+  title: Autorisation préalable pour données sensibles ou numéro de CIN
+  ref: art. 12(1), 21
+  theme: Formalités
+  objective: 'Lorsque le traitement porte sur des données sensibles (santé, origine raciale ou ethnique,
+    opinions politiques, convictions religieuses, appartenance syndicale) ou sur des données comportant
+    le numéro de la carte nationale d''identité, une autorisation préalable a été obtenue.
+
+    '
+  applicability: conditional
+  condition: client.handles_sensitive_data or client.handles_cin
+  weight: 3.0
+  evidence:
+  - Décision d'autorisation CNDP couvrant explicitement les données concernées
+  - 'Base légale retenue : consentement exprès ou nécessité (art. 21)'
+  guidance: 'C''est la formalité la plus fréquemment omise. La collecte de preuves d''onboarding ingère
+    couramment des copies de CIN et, pour les contrôles RH, des justificatifs médicaux. Recommandation
+    produit : noter la preuve (empreinte, métadonnées, attestation) sans stocker le document brut.
+
+    '
+  maps_to:
+  - A.5.34
+  - A.8.11
+  - A.8.12
+- id: MA09-08-03
+  title: Contrat de sous-traitance écrit (article 23)
+  ref: art. 23(2)-(4), 25
+  theme: Tiers
+  objective: 'Tout sous-traitant est lié par un contrat ou un acte juridique écrit prévoyant qu''il agit
+    sur la seule instruction du responsable de traitement et que les obligations de sécurité de l''article
+    23 lui incombent également.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Contrat de sous-traitance signé (DPA) avec clause d'instruction exclusive
+  - Liste des sous-traitants ultérieurs avec localisation
+  - Preuve écrite des exigences de sécurité transmises
+  guidance: 'C''est le document que l''avocat d''un client européen lira en premier. La preuve du contrat
+    et des exigences de sécurité doit être consignée par écrit ou sous forme équivalente.
+
+    '
+  maps_to:
+  - A.5.19
+  - A.5.20
+  - A.5.21
+  - CC9.2
+- id: MA09-08-04
+  title: Déclaration de la sous-traitance par le responsable de traitement
+  ref: art. 14(i)
+  theme: Tiers
+  objective: 'Le client (responsable de traitement) a déclaré à la CNDP la cession et la sous-traitance
+    à des tiers, et dispose des informations nécessaires pour ce faire.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Attestation du client confirmant la déclaration de sous-traitance
+  - Annexe 'déclarez-moi' fournie au client (catégories, destinataires, durée, transferts, mesures)
+  guidance: 'La déclaration doit mentionner les recoupements, interconnexions, cessions et sous-traitance
+    sous toute forme. Fournir cette annexe est un différenciateur commercial : personne ne le fait au
+    Maroc.
+
+    '
+  maps_to:
+  - A.5.19
+  - A.5.34
+- id: MA09-08-05
+  title: Base de transfert transfrontalier documentée
+  ref: art. 43, 44
+  theme: Transferts
+  objective: 'Tout transfert vers l''étranger repose sur un État figurant sur la liste CNDP (délibération
+    236-2015) ou sur une dérogation de l''article 44 dûment documentée.
+
+    '
+  applicability: conditional
+  condition: client.transfers_abroad or client.export_markets
+  weight: 3.0
+  evidence:
+  - Registre des transferts (destinataire, pays, catégories, finalité, base)
+  - 'Pour un pays hors liste : consentement exprès, clauses contractuelles ou autorisation CNDP (formulaire
+    F118)'
+  - Analyse d'impact du transfert le cas échéant
+  guidance: 'La liste d''adéquation de la CNDP (délibération 236-2015) comporte exactement 32 États :
+    UE/EEE, Royaume-Uni, Suisse, Canada. Les États-Unis n''y figurent pas. L''autorisation de transfert
+    n''est accordée que si le traitement sous-jacent a été déclaré ou autorisé.
+
+    '
+  maps_to:
+  - A.5.34
+  - A.5.14
+  - A.5.20
+  - CC6.7
+- id: MA09-08-06
+  title: Mesures de sécurité du responsable et du sous-traitant
+  ref: art. 23(1), 24
+  theme: Sécurité
+  objective: 'Des mesures techniques et organisationnelles appropriées protègent les données contre la
+    destruction, la perte, l''altération, la diffusion non autorisée ou l''accès non autorisé.
+
+    '
+  applicability: all
+  weight: 3.0
+  evidence:
+  - Politique de sécurité des données personnelles approuvée
+  - Configuration des contrôles d'accès et journalisation
+  - Chiffrement au repos et en transit
+  guidance: 'Pour les données sensibles ou de santé, l''article 24 impose des mesures spécifiques supplémentaires
+    (contrôle des entrées, des supports, des accès, journalisation, transmission, transport), sous réserve
+    de dispenses CNDP. L''absence de mise en oeuvre est punie par l''article 58.
+
+    '
+  maps_to:
+  - A.8.24
+  - A.8.10
+  - A.8.11
+  - A.8.12
+  - A.8.15
+  - A.8.16
+  - CC6.1
+- id: MA09-08-07
+  title: Durée de conservation déterminée et respectée
+  ref: art. 14, 54-56
+  theme: Données
+  objective: 'Les données ne sont pas conservées au-delà de la durée nécessaire à la finalité déclarée,
+    et la durée figure dans la déclaration.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Politique de conservation par catégorie de données
+  - Preuve de purge automatisée ou de revue périodique
+  - Registre des suppressions
+  guidance: 'La conservation excessive est punie par les articles 54 à 56. La durée de conservation est
+    un élément obligatoire de la déclaration (art. 14).
+
+    '
+  maps_to:
+  - A.5.33
+  - A.8.10
+  - P4.3
+  - C1.2
+- id: MA09-08-08
+  title: Information et droits des personnes concernées
+  ref: art. 5-11
+  theme: Personnes
+  objective: 'Les personnes concernées sont informées de la finalité, du caractère obligatoire ou facultatif
+    des réponses, des destinataires et disposent de l''exercice effectif de leurs droits d''accès, de
+    rectification et d''opposition.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Mentions d'information publiées (politique de confidentialité)
+  - Procédure documentée de traitement des demandes d'exercice de droits
+  - Registre des demandes et des délais de réponse
+  maps_to:
+  - A.5.34
+  - P5.1
+  - P5.2
+- id: MA09-08-09
+  title: Confidentialité et secret professionnel
+  ref: art. 25, 26
+  theme: Personnes
+  objective: 'Toute personne agissant sous l''autorité du responsable ou du sous-traitant ne traite les
+    données que sur instruction, et le secret professionnel survit à la fin des fonctions.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Clauses de confidentialité dans les contrats de travail et prestataires
+  - Accusés de sensibilisation signés par le personnel ayant accès
+  guidance: 'Le secret professionnel est sanctionné pénalement et perdure après la fin des fonctions (art.
+    26).
+
+    '
+  maps_to:
+  - A.6.3
+  - A.6.4
+  - A.6.6
+  - A.5.15
+  - A.6.5
+  - CC1.1
+- id: MA09-08-10
+  title: Inscription au registre national et transparence
+  ref: art. 45, 46
+  theme: Gouvernance
+  objective: 'Le traitement figure au registre national tenu par la CNDP, consultable par le public, et
+    les autorisations accordées y sont visibles.
+
+    '
+  applicability: all
+  weight: 1.0
+  evidence:
+  - Capture du registre national montrant le traitement du client
+  guidance: 'Conséquence commerciale directe : un client peut vérifier votre statut CNDP. Un sous-traitant
+    non enregistré est invendable à une équipe sécurité européenne.
+
+    '
+  maps_to:
+  - A.5.34
+- id: MA09-08-11
+  title: Désignation d'un correspondant à la protection des données
+  ref: bonne pratique (art. 31)
+  theme: Gouvernance
+  objective: 'Une personne est nommée pour suivre la conformité et servir d''interlocuteur auprès de la
+    CNDP.
+
+    '
+  applicability: conditional
+  condition: client.headcount_num >= 50 or client.handles_sensitive_data
+  weight: 1.0
+  evidence:
+  - Lettre de désignation ou fiche de fonction
+  - Preuve de formation ou de qualification
+  guidance: 'Non expressément imposé par la loi 09-08 pour toutes les organisations, mais attendu par
+    la CNDP et par tout client européen. Traiter comme une bonne pratique à forte valeur commerciale,
+    et le déclarer comme telle.
+
+    '
+  maps_to:
+  - A.5.2
+  - A.5.4
+- id: MA09-08-12
+  title: Registre des activités de traitement
+  ref: art. 14 (par analogie) ; bonne pratique
+  theme: Gouvernance
+  objective: 'Un inventaire des traitements existe : finalités, catégories de données, personnes concernées,
+    destinataires, durées, mesures de sécurité, transferts.
+
+    '
+  applicability: all
+  weight: 2.0
+  evidence:
+  - Registre des activités de traitement tenu à jour
+  - Cartographie des flux de données
+  guidance: 'Le contenu de la déclaration de l''article 14 constitue de fait la matière d''un registre.
+    Le tenir sous forme de registre rend la déclaration et la réponse aux questionnaires beaucoup plus
+    rapides.
+
+    '
+  maps_to:
+  - A.5.34
+  - A.5.9
+  - A.5.13

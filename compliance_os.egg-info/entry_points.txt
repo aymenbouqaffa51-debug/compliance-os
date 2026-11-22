@@ -1,0 +1,2 @@
+[console_scripts]
+compliance = compliance_os.cli:main

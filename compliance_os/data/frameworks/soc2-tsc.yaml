@@ -1,0 +1,414 @@
+# SOC 2 — Trust Services Criteria (sélection opérationnelle, 2017 rev. 2022)
+# Cadre: AICPA Trust Services Criteria. Sécurité (Common Criteria) + Confidentialité.
+# Note: SOC 2 n'est PAS une certification. C'est une attestation délivrée par un
+# cabinet CPA licencié, sous les normes professionnelles AICPA. Aucune exigence de
+# nationalité ne pèse sur l'entité auditée : la contrainte porte sur QUI réalise
+# l'examen. Toujours nommer le cabinet et son agrément.
+id: soc2-tsc
+name: SOC 2 — Trust Services Criteria (sélection opérationnelle)
+version: 2017 rev. 2022
+locale: en
+authority: AICPA
+source_url: https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2
+description: 'Sélection des critères communs (CC) et des critères de confidentialité les plus fréquemment
+  demandés par les acheteurs américains et les scale-ups européennes. Conçu pour une entreprise de services
+  numériques de 15 à 120 personnes.
+
+  '
+disclaimer: 'Ce fichier ne reproduit pas le texte AICPA sous copyright. SOC 2 est une attestation d''un
+  cabinet CPA licencié soumis à peer review, pas une certification de plateforme. Ne jamais présenter
+  un « badge SOC 2 » autodélivré comme une attestation.
+
+  '
+controls:
+- id: CC1.1
+  title: Intégrité et valeurs éthiques
+  ref: CC1.1
+  theme: CC1 Environnement de contrôle
+  objective: L'organisation démontre un engagement envers l'intégrité et les valeurs éthiques.
+  weight: 2.0
+  evidence:
+  - Code de conduite signé
+  - Politique de conflit d'intérêts
+  - Registre des dérogations
+  maps_to:
+  - MA09-08-09
+- id: CC1.2
+  title: Indépendance de la supervision
+  ref: CC1.2
+  theme: CC1 Environnement de contrôle
+  objective: Le conseil ou la direction supervise le contrôle interne de façon indépendante.
+  weight: 1.0
+  evidence:
+  - Procès-verbaux de gouvernance
+  - Preuve de revue de direction
+  maps_to:
+  - MA05-20-01
+- id: CC1.3
+  title: Structure, autorité et responsabilité
+  ref: CC1.3
+  theme: CC1 Environnement de contrôle
+  objective: Les responsabilités et l'autorité sont définies et communiquées.
+  weight: 1.0
+  evidence:
+  - Organigramme
+  - Fiches de fonction
+  - Délégations
+  maps_to:
+  - MA05-20-04
+- id: CC1.4
+  title: Engagement envers la compétence
+  ref: CC1.4
+  theme: CC1 Environnement de contrôle
+  objective: L'organisation attire, développe et retient des personnes compétentes.
+  weight: 1.0
+  evidence:
+  - Processus de recrutement
+  - Plan de formation
+  maps_to:
+  - MA05-20-04
+- id: CC1.5
+  title: Responsabilité de l'évaluation des performances
+  ref: CC1.5
+  theme: CC1 Environnement de contrôle
+  objective: Les responsabilités de contrôle interne sont évaluées.
+  weight: 1.0
+  evidence:
+  - Entretiens de performance
+  - Objectifs de contrôle
+- id: CC2.1
+  title: Information pertinente et de qualité
+  ref: CC2.1
+  theme: CC2 Communication
+  objective: L'organisation obtient et utilise l'information pertinente pour le contrôle interne.
+  weight: 1.0
+  evidence:
+  - Sources d'information documentées
+  - Preuve de revue
+- id: CC2.2
+  title: Communication interne des objectifs de contrôle
+  ref: CC2.2
+  theme: CC2 Communication
+  objective: Les objectifs et responsabilités de contrôle interne sont communiqués.
+  weight: 1.0
+  evidence:
+  - Preuve de communication
+  - Accusés de réception
+- id: CC2.3
+  title: Communication avec les parties externes
+  ref: CC2.3
+  theme: CC2 Communication
+  objective: L'organisation communique avec les parties externes sur les questions pertinentes.
+  weight: 1.0
+  evidence:
+  - Canal de contact sécurité
+  - Politique de divulgation
+- id: CC3.1
+  title: Spécification des objectifs
+  ref: CC3.1
+  theme: CC3 Risques
+  objective: Les objectifs sont spécifiés avec suffisamment de clarté pour permettre l'identification
+    des risques.
+  weight: 2.0
+  evidence:
+  - Objectifs documentés
+  - Lien avec les risques
+  maps_to:
+  - MA05-20-02
+- id: CC3.2
+  title: Identification et analyse des risques
+  ref: CC3.2
+  theme: CC3 Risques
+  objective: Les risques sont identifiés et analysés pour déterminer comment les gérer.
+  weight: 3.0
+  evidence:
+  - Analyse de risques datée
+  - Méthodologie
+  - Registre des risques
+  maps_to:
+  - MA05-20-02
+- id: CC3.3
+  title: Évaluation du risque de fraude
+  ref: CC3.3
+  theme: CC3 Risques
+  objective: Le risque de fraude est pris en compte dans l'évaluation des risques.
+  weight: 1.0
+  evidence:
+  - Analyse du risque de fraude
+  - Contrôles anti-fraude
+- id: CC3.4
+  title: Identification des changements significatifs
+  ref: CC3.4
+  theme: CC3 Risques
+  objective: Les changements qui affectent le système de contrôle interne sont identifiés.
+  weight: 1.0
+  evidence:
+  - Registre des changements
+  - Revue d'impact
+  maps_to:
+  - MA05-20-05
+- id: CC4.1
+  title: Évaluations de contrôle interne
+  ref: CC4.1
+  theme: CC4 Activités de contrôle
+  objective: Des évaluations continues ou distinctes du contrôle interne sont réalisées.
+  weight: 2.0
+  evidence:
+  - Rapports d'évaluation
+  - Plan d'audit interne
+- id: CC4.2
+  title: Communication des déficiences de contrôle
+  ref: CC4.2
+  theme: CC4 Activités de contrôle
+  objective: Les déficiences sont communiquées en temps utile aux responsables.
+  weight: 1.0
+  evidence:
+  - Registre des déficiences
+  - Preuve de remédiation
+- id: CC5.1
+  title: Sélection et développement d'activités de contrôle
+  ref: CC5.1
+  theme: CC5 Surveillance
+  objective: Des activités de contrôle sont sélectionnées et développées pour atténuer les risques.
+  weight: 2.0
+  evidence:
+  - Matrice risques-contrôles
+- id: CC5.2
+  title: Contrôles sur la technologie
+  ref: CC5.2
+  theme: CC5 Surveillance
+  objective: Des contrôles généraux sur la technologie sont mis en oeuvre.
+  weight: 2.0
+  evidence:
+  - Contrôles IT généraux
+  - Preuve d'application
+  maps_to:
+  - MA05-20-11
+- id: CC5.3
+  title: Déploiement des activités de contrôle par politique
+  ref: CC5.3
+  theme: CC5 Surveillance
+  objective: Les contrôles sont déployés au moyen de politiques et de procédures.
+  weight: 1.0
+  evidence:
+  - Politiques approuvées
+  - Procédures opérationnelles
+- id: CC6.1
+  title: Accès logique - restriction
+  ref: CC6.1
+  theme: CC6 Accès
+  objective: La logique d'accès est conçue pour restreindre l'accès aux seuls utilisateurs autorisés.
+  weight: 3.0
+  evidence:
+  - Politique d'accès
+  - Rôles et permissions
+  - Preuve de revue trimestrielle
+  maps_to:
+  - MA05-20-11
+  - MA09-08-06
+- id: CC6.2
+  title: Enregistrement et suppression des utilisateurs
+  ref: CC6.2
+  theme: CC6 Accès
+  objective: Les utilisateurs sont enregistrés, autorisés, et supprimés en temps utile.
+  weight: 2.0
+  evidence:
+  - Processus d'embarquement
+  - Registre des départs
+  - Preuve de révocation
+  maps_to:
+  - MA05-20-11
+- id: CC6.3
+  title: Accès basé sur les rôles et moindre privilège
+  ref: CC6.3
+  theme: CC6 Accès
+  objective: L'accès est attribué sur la base du rôle et du moindre privilège.
+  weight: 3.0
+  evidence:
+  - Matrice des rôles
+  - Liste des accès privilégiés
+  - Justification
+  maps_to:
+  - MA05-20-11
+  - MA05-20-12
+- id: CC6.6
+  title: Protection contre les menaces externes
+  ref: CC6.6
+  theme: CC6 Accès
+  objective: Le système est protégé contre les menaces provenant de sources externes.
+  weight: 3.0
+  evidence:
+  - Pare-feu et WAF
+  - Résultats de scan
+  - Gestion des vulnérabilités
+  maps_to:
+  - MA05-20-12
+  - MA05-20-05
+- id: CC6.7
+  title: Restriction du mouvement de l'information
+  ref: CC6.7
+  theme: CC6 Accès
+  objective: Le mouvement de l'information est restreint et chiffré.
+  weight: 2.0
+  evidence:
+  - Configuration TLS
+  - Politique de transfert
+  maps_to:
+  - MA09-08-05
+- id: CC6.8
+  title: Prévention et détection des logiciels non autorisés
+  ref: CC6.8
+  theme: CC6 Accès
+  objective: Les logiciels non autorisés ou malveillants sont empêchés et détectés.
+  weight: 1.0
+  evidence:
+  - Inventaire logiciel
+  - Solutions EDR
+- id: CC7.1
+  title: Détection de vulnérabilités et de mauvaises configurations
+  ref: CC7.1
+  theme: CC7 Opérations
+  objective: Des moyens de détection des vulnérabilités et configurations non conformes sont déployés.
+  weight: 3.0
+  evidence:
+  - Rapports de scan planifiés
+  - Suivi des remédiations
+  - SLA de correction
+  maps_to:
+  - MA05-20-02
+  - MA05-20-05
+- id: CC7.2
+  title: Surveillance des composants système
+  ref: CC7.2
+  theme: CC7 Opérations
+  objective: Les composants du système sont surveillés pour détecter les anomalies.
+  weight: 2.0
+  evidence:
+  - Supervision et alertes
+  - Preuve de revue des alertes
+  maps_to:
+  - MA05-20-06
+- id: CC7.3
+  title: Évaluation des événements de sécurité
+  ref: CC7.3
+  theme: CC7 Opérations
+  objective: Les événements de sécurité sont évalués pour déterminer s'ils constituent un incident.
+  weight: 2.0
+  evidence:
+  - Procédure de triage
+  - Registre des incidents
+  - Critères de qualification
+  maps_to:
+  - MA05-20-07
+- id: CC7.4
+  title: Réponse aux incidents identifiés
+  ref: CC7.4
+  theme: CC7 Opérations
+  objective: Les incidents sont contenus et résolus par des procédures documentées.
+  weight: 2.0
+  evidence:
+  - Playbooks d'incident
+  - Post-mortems
+  - Preuve de notification
+  maps_to:
+  - MA05-20-07
+- id: CC7.5
+  title: Rétablissement après incident
+  ref: CC7.5
+  theme: CC7 Opérations
+  objective: Les capacités sont rétablies après un incident.
+  weight: 1.0
+  evidence:
+  - Plan de reprise
+  - Compte rendu de test
+  maps_to:
+  - MA05-20-08
+- id: CC8.1
+  title: Gestion des changements
+  ref: CC8.1
+  theme: CC8 Changements
+  objective: L'autorisation, la conception, le développement, la configuration, la documentation, les
+    tests, l'approbation et la mise en oeuvre des changements sont contrôlés.
+  weight: 3.0
+  evidence:
+  - Procédure de changement
+  - Revue de code approuvée
+  - Historique des déploiements
+  maps_to:
+  - MA05-20-05
+- id: CC9.1
+  title: Identification des risques d'activité
+  ref: CC9.1
+  theme: CC9 Risques d'activité
+  objective: Les risques liés à l'interruption d'activité, au personnel et aux parties externes sont identifiés.
+  weight: 1.0
+  evidence:
+  - Analyse de risques d'activité
+  - Plan de continuité
+  maps_to:
+  - MA05-20-08
+- id: CC9.2
+  title: Évaluation et gestion des risques fournisseurs
+  ref: CC9.2
+  theme: CC9 Risques d'activité
+  objective: Les risques liés aux fournisseurs et partenaires sont évalués et gérés.
+  weight: 2.0
+  evidence:
+  - Évaluation fournisseurs
+  - Revues périodiques
+  maps_to:
+  - MA09-08-03
+  - MA05-20-09
+- id: C1.1
+  title: Identification des informations confidentielles
+  ref: C1.1
+  theme: C1 Confidentialité
+  objective: Les informations confidentielles sont identifiées et leur cycle de vie est défini.
+  weight: 2.0
+  evidence:
+  - Inventaire des informations confidentielles
+  - Politique de classification
+  maps_to:
+  - MA05-20-03
+- id: C1.2
+  title: Suppression des informations confidentielles
+  ref: C1.2
+  theme: C1 Confidentialité
+  objective: Les informations confidentielles sont supprimées en fin de vie de la manière prévue.
+  weight: 2.0
+  evidence:
+  - Procédure de suppression
+  - Preuve de destruction
+  maps_to:
+  - MA09-08-07
+- id: P4.3
+  title: Cycle de vie de la conservation
+  ref: P4.3
+  theme: P4 Politique de conservation
+  objective: Les donnees personnelles sont conservees conformement a la politique de conservation et supprimees
+    de maniere sure.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA09-08-07
+- id: P5.1
+  title: Avis et communication de la politique de confidentialite
+  ref: P5.1
+  theme: P5 Acces
+  objective: La politique de confidentialite est communiquee aux personnes concernees.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA09-08-08
+- id: P5.2
+  title: Acces des personnes concernees
+  ref: P5.2
+  theme: P5 Acces
+  objective: Les personnes concernees peuvent acceder a leurs donnees personnelles.
+  weight: 1.5
+  evidence:
+  - Element de preuve documente
+  maps_to:
+  - MA09-08-08
